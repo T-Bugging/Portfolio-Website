@@ -222,7 +222,7 @@ export function Contact() {
                     className="p-4 bg-green-50 border border-green-200 rounded-xl"
                   >
                     <p className="text-sm text-green-700 font-medium">
-                      ✓ Message sent successfully! I'll get back to you soon.
+                     Message sent successfully! I'll get back to you soon.
                     </p>
                   </motion.div>
                 )}
@@ -234,7 +234,7 @@ export function Contact() {
                     className="p-4 bg-red-50 border border-red-200 rounded-xl"
                   >
                     <p className="text-sm text-red-700 font-medium">
-                      ✗ Failed to send message. Please try again or contact me directly.
+                      Failed to send message. Please try again or contact me directly.
                     </p>
                   </motion.div>
                 )}
