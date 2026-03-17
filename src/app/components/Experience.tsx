@@ -4,7 +4,7 @@ import { MapPin, Calendar } from 'lucide-react';
 
 const experience = {
   title: 'AI/ML Intern',
-  company: 'Cluster Computing',
+  company: 'Clustor Computing',
   period: 'Dec 2025 – May 2026',
   location: 'Nagpur (Onsite)',
   contributions: [
