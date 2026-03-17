@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260">
+  <defs>
+    <style>
+      .google-red { fill: #EA4335; }
+      .google-yellow { fill: #FBBC04; }
+      .google-green { fill: #34A853; }
+      .google-blue { fill: #4285F4; }
+    </style>
+  </defs>
+  <circle cx="130" cy="130" r="120" class="google-blue"/>
+  <path d="M 50 130 A 80 80 0 0 0 130 50 A 80 80 0 0 1 210 130" class="google-red"/>
+  <path d="M 130 50 A 80 80 0 0 1 210 130 A 80 80 0 0 0 130 210" class="google-yellow"/>
+  <path d="M 130 210 A 80 80 0 0 0 50 130 A 80 80 0 0 1 130 50" class="google-green"/>
+  <circle cx="130" cy="130" r="50" fill="white"/>
+</svg>

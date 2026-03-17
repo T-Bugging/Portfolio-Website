@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 100">
+  <defs>
+    <style>
+      .oracle-red { fill: #FF0000; stroke: #FF0000; stroke-width: 3; }
+      .oracle-text { font-family: Arial, sans-serif; font-size: 40px; font-weight: bold; fill: #FF0000; }
+    </style>
+  </defs>
+  <!-- Rounded rectangle -->
+  <rect x="20" y="15" width="60" height="70" rx="15" ry="15" class="oracle-red" fill="none"/>
+  <!-- Text -->
+  <text x="130" y="60" class="oracle-text">ORACLE</text>
+</svg>
