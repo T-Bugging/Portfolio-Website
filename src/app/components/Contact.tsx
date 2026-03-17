@@ -20,33 +20,38 @@ export function Contact() {
     });
   };
 
+  // Helper to encode form data for Netlify
+  const encode = (data: any) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      // Submit to serverless function (Netlify/Vercel)
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+      // Submitting directly to Netlify's form handler at the root URL
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact", ...formData })
       });
 
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setSubmitStatus('idle'), 3000);
+        setTimeout(() => setSubmitStatus('idle'), 4000);
       } else {
         setSubmitStatus('error');
-        setTimeout(() => setSubmitStatus('idle'), 3000);
+        setTimeout(() => setSubmitStatus('idle'), 4000);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus('idle'), 3000);
+      setTimeout(() => setSubmitStatus('idle'), 4000);
     } finally {
       setIsSubmitting(false);
     }
@@ -143,12 +148,19 @@ export function Contact() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Added 'name' and 'data-netlify' for Netlify bot detection */}
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true" 
+                onSubmit={handleSubmit} 
+                className="space-y-5"
+              >
+                {/* Hidden input required for React forms on Netlify */}
+                <input type="hidden" name="form-name" value="contact" />
+
                 <div>
-                  <label 
-                    htmlFor="name"
-                    className="block text-sm font-medium text-zinc-700 mb-2"
-                  >
+                  <label htmlFor="name" className="block text-sm font-medium text-zinc-700 mb-2">
                     Name
                   </label>
                   <input
@@ -163,10 +175,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label 
-                    htmlFor="email"
-                    className="block text-sm font-medium text-zinc-700 mb-2"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-2">
                     Email
                   </label>
                   <input
@@ -181,10 +190,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label 
-                    htmlFor="message"
-                    className="block text-sm font-medium text-zinc-700 mb-2"
-                  >
+                  <label htmlFor="message" className="block text-sm font-medium text-zinc-700 mb-2">
                     Message
                   </label>
                   <textarea
@@ -213,7 +219,6 @@ export function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
                     className="p-4 bg-green-50 border border-green-200 rounded-xl"
                   >
                     <p className="text-sm text-green-700 font-medium">
@@ -226,7 +231,6 @@ export function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
                     className="p-4 bg-red-50 border border-red-200 rounded-xl"
                   >
                     <p className="text-sm text-red-700 font-medium">
