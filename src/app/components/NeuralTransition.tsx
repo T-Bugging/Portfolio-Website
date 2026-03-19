@@ -94,7 +94,7 @@ export function NeuralTransition() {
                 style={{
                   cx: useTransform(smoothProgress, [0.1, 0.7], [`${randomPoints[i].x}%`, `${point.x}%`]),
                   cy: useTransform(smoothProgress, [0.1, 0.7], [`${randomPoints[i].y}%`, `${point.y}%`]),
-                  opacity: useTransform(smoothProgress, [0, 0.1, 1, 1], [0, 1, 1, 0]),
+                  opacity: useTransform(smoothProgress, [0, 0.1, 1, 1], [0, 1, 1, 1]),
                 }}
               />
             ))}
@@ -106,13 +106,13 @@ export function NeuralTransition() {
           style={{ 
             // Appears only after network assembly (0.75 -> 0.9)
             opacity: useTransform(smoothProgress, [0.75, 0.9], [0, 1]),
-            y: useTransform(smoothProgress, [0.75, 0.9], [40, -50]) // Slight gap from the network
+            y: useTransform(smoothProgress, [0.75, 0.9], [40, -130]) // Slight gap from the network
           }}
           className="z-20 mt-8" 
         >
           <div className="px-10 py-5 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 shadow-lg">
             <h2 className="text-2xl md:text-3xl font-light text-zinc-800 tracking-tight italic text-center">
-              "Intelligence should <span className="text-indigo-600 font-semibold">solve</span>, not impress"
+              Turning Data, into <span className="text-indigo-600 font-semibold">Clear</span> Decisions.
             </h2>
           </div>
         </motion.div>

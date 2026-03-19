@@ -5,8 +5,8 @@ import { MapPin, Calendar } from 'lucide-react';
 const experience = {
   title: 'AI/ML Intern',
   company: 'Clustor Computing',
-  period: 'Dec 2025 – May 2026',
-  location: 'Nagpur (Onsite)',
+  period: 'Dec 2025 – Present',
+  location: 'Nagpur ',
   contributions: [
     'Built and deployed multiple machine learning systems using LightGBM, Logistic Regression, CNNs, and MobileNetV2.',
     'Developed full-stack ML applications integrating Flask APIs with React interfaces.',

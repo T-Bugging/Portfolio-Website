@@ -1,30 +1,30 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion'; // Assuming you are using framer-motion
 import { useInView } from './hooks/useInView';
 
 const skillCategories = [
   {
+    category: 'NLP & Generative AI',
+    skills: ['Gemini API', 'HuggingFace', 'Transformers', 'RAG', 'LLMs', 'Prompt Engineering']
+  },
+  {
+    category: 'Deep Learning & CV',
+    skills: [ 'TensorFlow', 'CNNs', 'Data Pre-processing', 'Transfer Learning', 'OpenCV']
+  },
+  {
     category: 'Machine Learning',
-    skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'LightGBM', 'XGBoost']
+    skills: ['Scikit-learn', 'LightGBM', 'XGBoost', 'Logistic Regression', 'Feature Engineering']
   },
   {
-    category: 'Deep Learning',
-    skills: ['CNNs', 'Transfer Learning', 'MobileNetV2', 'Computer Vision']
+    category: 'Data & Vector Databases',
+    skills: ['MySQL', 'MongoDB', 'ChromaDB', 'Vector Databases', 'SQL Architectures']
   },
   {
-    category: 'NLP & AI',
-    skills: ['HuggingFace', 'Transformers', 'DialoGPT', 'Gemini API', 'LangChain']
+    category: 'Backend & Deployment',
+    skills: ['Python', 'FastAPI', 'Flask', 'REST APIs', 'Model Serving']
   },
   {
-    category: 'Data & Databases',
-    skills: ['ChromaDB', 'Vector Databases', 'Pandas', 'NumPy', 'SQL']
-  },
-  {
-    category: 'Backend',
-    skills: ['Flask', 'REST APIs', 'Python', 'Node.js']
-  },
-  {
-    category: 'Frontend',
-    skills: ['React', 'JavaScript', 'Tailwind CSS', 'Leaflet', 'HTML/CSS']
+    category: ' Engineering & DevOps',
+    skills: ['Git/GitHub', 'Ubuntu', 'Fedora', 'AWS (Foundational)', 'Docker']
   }
 ];
 

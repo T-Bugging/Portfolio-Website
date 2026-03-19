@@ -35,7 +35,7 @@ export function Achievements() {
                 <p className="text-zinc-600 leading-relaxed">
                   Secured 2nd place at my college-level hackathon of the NASA Space Apps Challenge, 
                   one of the world's largest global hackathons organized by NASA. Our project was 
-                  selected as a global nominee, advancing from a pool of over 1,293 teams worldwide.
+                  selected as a global nominee, advancing to a pool of nearly of 1,293 teams worldwide.
                 </p>
               </div>
             </div>

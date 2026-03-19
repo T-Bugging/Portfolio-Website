@@ -89,7 +89,7 @@ export function Projects() {
     target: targetRef,
   });
 
-  // Range adjusted to -145% to ensure all cards fully transit
+  
   const xRaw = useTransform(scrollYProgress, [0, 1], ["0%", "-115%"]);
   const x = useSpring(xRaw, { stiffness: 200, damping: 50, mass: 0.5 });
 
@@ -101,8 +101,8 @@ export function Projects() {
           <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight">
             Projects
           </h2>
-          <p className="text-zinc-400 mt-2 font-medium uppercase text-[10px] tracking-[0.2em]">
-            R&D Engineering / 05 Selected
+          <p className="text-zinc-400 mt-2 font-medium uppercase text-[10px] tracking-[0.25em]">
+              SCROLL DOWN TO EXPLORE
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function Projects() {
                 scale: 1.02,
                 boxShadow: "0 30px 60px -12px rgba(0, 0, 0, 0.08)" 
               }}
-              className="group relative flex-shrink-0 w-[300px] md:w-[480px] aspect-square bg-white border border-zinc-200/60 p-10 rounded-[3rem] flex flex-col justify-between transition-all duration-300 z-10 hover:z-20 cursor-pointer"
+             className="group relative flex-shrink-0 w-[85vw] md:w-[480px] h-[60vh] max-h-[550px] bg-white border border-zinc-200/60 p-10 rounded-[3rem] flex flex-col justify-between transition-all duration-300 z-10 hover:z-20 cursor-pointer"
             >
               <div>
                 <div className="flex justify-between items-start mb-6">

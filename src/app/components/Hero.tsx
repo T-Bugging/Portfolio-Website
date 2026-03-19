@@ -153,7 +153,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            AI/ML Engineer
+            AI/ML Developer
           </motion.div>
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-zinc-900 tracking-tight">
