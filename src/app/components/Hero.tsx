@@ -1,145 +1,95 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef, useEffect, useState } from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { useRef, useEffect } from 'react';
+import { Github, Linkedin } from 'lucide-react';
 import * as THREE from 'three';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasContainerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const canvasRef = useRef<HTMLDivElement>(null);
 
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
+  const scale = useTransform(scrollY, [0, 300], [1, 0.98]);
 
   useEffect(() => {
-    setIsLoaded(true); // Trigger text visibility immediately
+    if (!canvasRef.current) return;
 
-    if (!canvasContainerRef.current) return;
-
-    // 1. Scene Setup
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
-    camera.position.z = 1100;
+    
+    // --- ZOOMED IN CAMERA SETTINGS ---
+    // Lower FOV (40 instead of 55) creates a "telephoto" zoom effect
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 2000);
+    // Physically moved the camera closer (from 600 down to 350-400)
+    camera.position.set(-350, 300, 450); 
+    camera.lookAt(0, -50, 0); 
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    canvasContainerRef.current.appendChild(renderer.domElement);
+    canvasRef.current.appendChild(renderer.domElement);
 
-    // 2. Data Structures
-    const particlesCount = 15000;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particlesCount * 3);
-    const colors = new Float32Array(particlesCount * 3);
-
-    const targets = {
-      cube: new Float32Array(particlesCount * 3),
-      pillar: new Float32Array(particlesCount * 3),
-      brain: new Float32Array(particlesCount * 3)
+    const createCircleTexture = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d')!;
+      ctx.beginPath();
+      ctx.arc(32, 32, 28, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      return new THREE.CanvasTexture(canvas);
     };
 
-    const indigo = new THREE.Color(0x4f46e5);
-    const magenta = new THREE.Color(0xdb2777);
+    const rows = 100;
+    const cols = 100;
+    const count = rows * cols;
+    const spacing = 18;
+    
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const blueColor = new THREE.Color(0x2563eb); 
 
-    // 3. Generate Targets
-    for (let i = 0; i < particlesCount; i++) {
-      const i3 = i * 3;
-
-      // --- CUBE ---
-      const face = i % 6;
-      const u = Math.random() * 400 - 200;
-      const v = Math.random() * 400 - 200;
-      const fixed = 200;
-      if (face === 0) { targets.cube[i3] = u; targets.cube[i3+1] = v; targets.cube[i3+2] = fixed; }
-      else if (face === 1) { targets.cube[i3] = u; targets.cube[i3+1] = v; targets.cube[i3+2] = -fixed; }
-      else if (face === 2) { targets.cube[i3] = u; targets.cube[i3+1] = fixed; targets.cube[i3+2] = v; }
-      else if (face === 3) { targets.cube[i3] = u; targets.cube[i3+1] = -fixed; targets.cube[i3+2] = v; }
-      else if (face === 4) { targets.cube[i3] = fixed; targets.cube[i3+1] = u; targets.cube[i3+2] = v; }
-      else { targets.cube[i3] = -fixed; targets.cube[i3+1] = u; targets.cube[i3+2] = v; }
-
-      // --- DATA PILLAR ---
-      const radius = 250;
-      const height = 1000;
-      const theta = Math.random() * Math.PI * 2;
-      const h = Math.random() * height - (height / 2);
-      const strand = Math.floor(theta * 8) / 8;
-      targets.pillar[i3] = Math.cos(strand) * radius + (Math.random() - 0.5) * 30;
-      targets.pillar[i3 + 1] = h;
-      targets.pillar[i3 + 2] = Math.sin(strand) * radius + (Math.random() - 0.5) * 30;
-
-      // --- BRAIN ---
-      const phi = Math.random() * Math.PI * 2;
-      const thetaB = Math.acos((Math.random() * 2) - 1);
-      const r = 320 + (Math.sin(phi * 10) * Math.cos(thetaB * 10) * 45);
-      targets.brain[i3] = r * Math.sin(thetaB) * Math.cos(phi);
-      targets.brain[i3 + 1] = (r * 1.1) * Math.sin(thetaB) * Math.sin(phi) + 50;
-      targets.brain[i3 + 2] = r * Math.cos(thetaB);
-
-      // Start everything at Cube
-      positions[i3] = targets.cube[i3];
-      positions[i3+1] = targets.cube[i3+1];
-      positions[i3+2] = targets.cube[i3+2];
-      
-      colors[i3] = indigo.r; colors[i3+1] = indigo.g; colors[i3+2] = indigo.b;
+    for (let i = 0; i < count; i++) {
+      const x = (i % cols) * spacing - (cols * spacing) / 2;
+      const z = Math.floor(i / cols) * spacing - (rows * spacing) / 2;
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = 0;
+      positions[i * 3 + 2] = z;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 4.5,
-      vertexColors: true,
+      size: 5, // Slightly larger particles to match the zoom
+      color: blueColor,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.5,
+      map: createCircleTexture(),
+      alphaTest: 0.05,
+      sizeAttenuation: true
     });
 
-    const particlesMesh = new THREE.Points(geometry, material);
-    scene.add(particlesMesh);
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
 
-    // 4. Animation State
-    const states = ['cube', 'pillar', 'brain'] as const;
-    let currentStateIdx = 0;
-    let lastSwitch = Date.now();
-
+    let time = 0;
     const animate = () => {
-      const now = Date.now();
-      const elapsed = now - lastSwitch;
-      const posAttr = particlesMesh.geometry.attributes.position;
-      const colAttr = particlesMesh.geometry.attributes.color;
+      time += 0.012;
+      const pos = particles.geometry.attributes.position.array as Float32Array;
 
-      if (elapsed > 3500) {
-        lastSwitch = now;
-        currentStateIdx = (currentStateIdx + 1) % states.length;
-      }
-
-      const currentTarget = targets[states[currentStateIdx]];
-
-      for (let i = 0; i < particlesCount; i++) {
+      for (let i = 0; i < count; i++) {
         const i3 = i * 3;
+        const x = pos[i3];
+        const z = pos[i3 + 2];
 
-        // Smooth Movement (The "Magnet" effect)
-        const dx = currentTarget[i3] - posAttr.array[i3];
-        const dy = currentTarget[i3+1] - posAttr.array[i3+1];
-        const dz = currentTarget[i3+2] - posAttr.array[i3+2];
-
-        posAttr.array[i3] += dx * 0.04;
-        posAttr.array[i3+1] += dy * 0.04;
-        posAttr.array[i3+2] += dz * 0.04;
-
-        // Smooth Color Shift based on distance
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        const targetColor = distance > 100 ? magenta : indigo;
-
-        colAttr.array[i3] += (targetColor.r - colAttr.array[i3]) * 0.03;
-        colAttr.array[i3+1] += (targetColor.g - colAttr.array[i3+1]) * 0.03;
-        colAttr.array[i3+2] += (targetColor.b - colAttr.array[i3+2]) * 0.03;
+        const wave1 = Math.sin(x * 0.003 + time) * 45;
+        const wave2 = Math.sin(z * 0.002 + time * 0.5) * 35;
+        const wave3 = Math.sin((x + z) * 0.002 + time) * 20;
+        
+        pos[i3 + 1] = wave1 + wave2 + wave3;
       }
 
-      posAttr.needsUpdate = true;
-      colAttr.needsUpdate = true;
-      particlesMesh.rotation.y += 0.002;
-
+      particles.geometry.attributes.position.needsUpdate = true;
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
@@ -156,32 +106,44 @@ export function Hero() {
     return () => {
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
+      if (canvasRef.current) canvasRef.current.innerHTML = '';
     };
   }, []);
 
   return (
     <section id="home" ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-      <div ref={canvasContainerRef} className="absolute inset-0 z-0 opacity-40 pointer-events-none" />
+      <div ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-70" />
       
       <motion.div 
         className="relative z-10 max-w-5xl mx-auto px-6 text-center"
         style={{ opacity, scale }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
       >
-        <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-sm font-medium border border-indigo-100">
+        <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold border border-blue-100 uppercase tracking-widest">
           AI/ML Engineer
         </div>
-        <h1 className="text-6xl md:text-8xl font-bold mb-6 text-zinc-900 tracking-tight">
+        <h1 className="text-7xl md:text-9xl font-bold mb-6 text-zinc-900 tracking-tighter">
           Uday Pandey
         </h1>
-        <p className="text-xl md:text-2xl text-zinc-600 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-          Bridge the gap between complex data and actionable insights.
+        <p className="text-xl md:text-2 text-zinc-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+          Bridging the gap between complex data and actionable insights.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <motion.a href="https://github.com/T-Bugging" target="_blank" className="px-6 py-3 bg-zinc-900 text-white rounded-xl flex items-center gap-2" whileHover={{ scale: 1.05 }}><Github size={18}/> GitHub</motion.a>
-          <motion.a href="https://linkedin.com/in/uday-pandey-cs" target="_blank" className="px-6 py-3 bg-white text-zinc-900 border border-zinc-200 rounded-xl flex items-center gap-2" whileHover={{ scale: 1.05 }}><Linkedin size={18}/> LinkedIn</motion.a>
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          <motion.a 
+            href="https://github.com/T-Bugging" 
+            target="_blank" 
+            className="px-8 py-4 bg-zinc-900 text-white rounded-2xl flex items-center gap-3 font-bold shadow-xl" 
+            whileHover={{ y: -5 }}
+          >
+            <Github size={22}/> GitHub
+          </motion.a>
+          <motion.a 
+            href="https://linkedin.com/in/uday-pandey-cs" 
+            target="_blank" 
+            className="px-8 py-4 bg-white text-zinc-900 border border-zinc-200 rounded-2xl flex items-center gap-3 font-bold shadow-sm" 
+            whileHover={{ y: -5 }}
+          >
+            <Linkedin size={22}/> LinkedIn
+          </motion.a>
         </div>
       </motion.div>
     </section>

@@ -4,10 +4,10 @@ import { ExternalLink } from 'lucide-react';
 
 const certificates = [
   {
-    title: 'Introduction to Model Context Protocol',
-    issuer: 'Anthropic',
-    year: '2026',
-    link: 'https://verify.skilljar.com/c/qxg3xwvwot4h',
+    title: 'OCI Generative AI Professional',
+    issuer: 'Oracle',
+    year: '2025',
+    link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=95B4A38145546E45C15A8FB12F43B922372F3F2A4806254FFDB0FD38A0C442BF',
   },
   {
     title: 'AI Fluency Framework & Foundations',
@@ -23,10 +23,10 @@ const certificates = [
     link: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=482562E1AD41CBCAC219DC7AF7D0159355E92C21FCAE76310084C985CAEED6FF',
   },
   {
-    title: 'OCI Generative AI Professional',
-    issuer: 'Oracle',
-    year: '2025',
-    link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=95B4A38145546E45C15A8FB12F43B922372F3F2A4806254FFDB0FD38A0C442BF',
+    title: 'Introduction to Model Context Protocol',
+    issuer: 'Anthropic',
+    year: '2026',
+    link: 'https://verify.skilljar.com/c/qxg3xwvwot4h',
   },
   {
     title: 'Google Cloud Agentic AI Day',
