@@ -106,15 +106,16 @@ export function Navigation() {
           {/* 3. Right Group: Resume Button */}
           <div className="flex items-center justify-end">
             <motion.a
-              href="https://drive.google.com/uc?export=download&id=1WllM5pTQG16ULHJW8-sCOsdFG2Ds2s5u"
+              href="https://drive.google.com/file/d/18jBs4fhat1o2hIm2N1hgN4cK9s6HNz3m/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 bg-zinc-900 text-white text-sm font-bold rounded-xl hover:bg-indigo-600 transition-all shadow-lg shadow-zinc-900/10 active:scale-95"
-              whileHover={{ 
-                scale: 1.05,
-                y: -2, // Consistent popup effect
-                boxShadow: "0 10px 20px -5px rgba(79, 70, 229, 0.3)" 
+              className="flex items-center gap-2 px-5 py-2 bg-zinc-950 text-white text-sm font-bold rounded-xl shadow-xl shadow-zinc-950/20 hover:bg-zinc-800 transition-all"
+              whileHover={{
+                scale: 1.03,
+                y: -1,
+                boxShadow: '0 18px 30px -12px rgba(15, 23, 42, 0.45)'
               }}
+              whileTap={{ scale: 0.97 }}
             >
               <FileDown className="w-4 h-4" />
               <span>Resume</span>
