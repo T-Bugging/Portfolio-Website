@@ -40,7 +40,7 @@ export function Education() {
                   
                   <div className="inline-flex items-center gap-3 px-4 py-2 bg-zinc-50 rounded-lg">
                     <span className="text-sm text-zinc-600">CGPA</span>
-                    <span className="text-lg font-semibold text-zinc-900">9.38 / 10</span>
+                    <span className="text-lg font-semibold text-zinc-900">9.43 / 10</span>
                   </div>
                 </div>
               </div>

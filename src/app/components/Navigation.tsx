@@ -106,7 +106,7 @@ export function Navigation() {
           {/* 3. Right Group: Resume Button */}
           <div className="flex items-center justify-end">
             <motion.a
-              href="https://drive.google.com/file/d/18jBs4fhat1o2hIm2N1hgN4cK9s6HNz3m/view?usp=sharing"
+              href="https://drive.google.com/file/d/1drBfBGBHu-95kfi7osw5PKDqxppdDE3v/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2 bg-zinc-950 text-white text-sm font-bold rounded-xl shadow-xl shadow-zinc-950/20 hover:bg-zinc-800 transition-all"
