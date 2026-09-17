@@ -18,6 +18,19 @@ const projects = [
     github: 'https://github.com/T-Bugging/Automated-Book-Publication-Workflow'
   },
   {
+    title: 'Unified Multi-Source Search Platform',
+    description: 'An enterprise-grade hybrid search platform integrating multiple data sources into custom Azure AI Search indexes.',
+    contributions: [
+      'Integrated 5 heterogeneous enterprise data sources including PostgreSQL, SharePoint, and Excel spreadsheets.',
+      'Designed a unified metadata-driven indexing architecture with 5 specialized custom scoring profiles.',
+      'Implemented hybrid search architecture pairing BM25 keyword matching with vector embeddings via Reciprocal Rank Fusion (RRF).',
+      'Developed real-time REST API layer on Azure to handle cross-platform data discovery and high-concurrency search queries.'
+    ],
+    technologies: ['Azure AI Search', 'Hybrid Search', 'RRF', 'PostgreSQL', 'FastAPI', 'Python'],
+    github: null,
+    isEnterprise: true
+  },
+  {
     title: 'Real-Time Transit Overcrowding Prediction',
     description: 'A full-stack system that predicts public transit overcrowding levels and visualizes routes using interactive maps.',
     contributions: [
@@ -57,18 +70,6 @@ const projects = [
     technologies: ['Python', 'Machine Learning', 'Flask', 'React'],
     github: 'https://github.com/T-Bugging/AI-Tutor-Personalized-Learning-Recommendation-System'
   },
-  {
-    title: 'Local AI Chatbot (DialoGPT)',
-    description: 'A locally running conversational AI chatbot using a pretrained language model.',
-    contributions: [
-      'Implemented a chatbot using DialoGPT-medium (345M parameters).',
-      'Built conversation memory using tokenized chat history.',
-      'Generated responses using sampling techniques (top-k, top-p, temperature).',
-      'Designed a lightweight CLI interface that runs fully on CPU.'
-    ],
-    technologies: ['PyTorch', 'HuggingFace Transformers', 'NLP'],
-    github: 'https://github.com/T-Bugging/Chatbot-using-DialoGPT'
-  }
 ];
 
 export function Projects() {
@@ -89,7 +90,17 @@ export function Projects() {
     target: targetRef,
   });
 
-  
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      window.scrollTo({
+        top: window.scrollY + 180,
+        behavior: 'smooth'
+      });
+    }, 500);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
   const xRaw = useTransform(scrollYProgress, [0, 1], ["0%", "-115%"]);
   const x = useSpring(xRaw, { stiffness: 200, damping: 50, mass: 0.5 });
 
@@ -147,15 +158,21 @@ export function Projects() {
                   <Plus className="w-4 h-4 text-indigo-600 transition-transform group-hover/btn:rotate-90" />
                   View Details
                 </button>
-                <a 
-                  href={project.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="p-2 text-zinc-400 hover:text-zinc-900 transition-all transform hover:scale-110"
-                >
-                  <Github className="w-5 h-5" />
-                </a>
+                {project.github ? (
+                  <a 
+                    href={project.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 text-zinc-400 hover:text-zinc-900 transition-all transform hover:scale-110"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                ) : (
+                  <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider px-2 py-1 bg-zinc-100 rounded-md">
+                    Enterprise
+                  </span>
+                )}
               </div>
             </motion.div>
           ))}
@@ -217,14 +234,21 @@ export function Projects() {
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-zinc-100 flex justify-end">
-                  <a 
-                    href={selectedProject.github} 
-                    target="_blank"
-                    className="flex items-center gap-2 px-8 py-3 bg-zinc-900 text-white rounded-2xl text-sm font-bold hover:bg-indigo-600 transition-all shadow-lg shadow-zinc-900/10"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Source Code
-                  </a>
+                  {selectedProject.github ? (
+                    <a 
+                      href={selectedProject.github} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-8 py-3 bg-zinc-900 text-white rounded-2xl text-sm font-bold hover:bg-indigo-600 transition-all shadow-lg shadow-zinc-900/10"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Source Code
+                    </a>
+                  ) : (
+                    <span className="text-xs font-semibold text-zinc-400 italic bg-zinc-50 px-4 py-2 rounded-xl border border-zinc-100">
+                      Internal / Enterprise Project (Repository Private)
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>

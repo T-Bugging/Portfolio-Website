@@ -3,28 +3,28 @@ import { useInView } from './hooks/useInView';
 
 const skillCategories = [
   {
-    category: 'NLP & Generative AI',
-    skills: ['Gemini API', 'HuggingFace', 'Transformers', 'RAG', 'LLMs', 'Prompt Engineering']
-  },
-  {
-    category: 'Deep Learning & CV',
-    skills: [ 'TensorFlow', 'CNNs', 'Data Pre-processing', 'Transfer Learning', 'OpenCV']
-  },
-  {
     category: 'Machine Learning',
-    skills: ['Scikit-learn', 'LightGBM', 'XGBoost', 'Logistic Regression', 'Feature Engineering']
+    skills: ['Scikit-learn', 'LightGBM', 'XGBoost', 'Logistic Regression', 'Feature Engineering', 'Model Evaluation']
+  },
+  {
+    category: 'Azure & Cloud Infrastructure',
+    skills: ['Azure AI Foundry', 'Azure Blob Storage', 'Azure Websites', 'Deployment & Scaling', 'Cloud Integration', 'Monitoring']
+  },
+  {
+    category: 'NLP & Generative AI',
+    skills: ['RAG', 'Embeddings', 'Semantic Search', 'Vector Retrieval', 'LLMs', 'Prompt Engineering', 'Gemini API', 'Transformers']
   },
   {
     category: 'Data & Vector Databases',
-    skills: ['MySQL', 'MongoDB', 'ChromaDB', 'Vector Databases', 'SQL Architectures']
+    skills: ['ChromaDB', 'Vector Databases', 'Azure AI Search', 'Hybrid Search', 'Semantic Indexing', 'SQL Architectures']
   },
   {
     category: 'Backend & Deployment',
-    skills: ['Python', 'FastAPI', 'Flask', 'REST APIs', 'Model Serving']
+    skills: ['Python', 'FastAPI', 'Flask', 'REST APIs', 'Model Serving', 'API Design']
   },
   {
-    category: ' Engineering & DevOps',
-    skills: ['Git/GitHub', 'Ubuntu', 'Fedora', 'AWS (Foundational)', 'Docker']
+    category: 'Engineering & DevOps',
+    skills: ['Git/GitHub', 'Ubuntu', 'Fedora', 'AWS (Foundational)', 'Docker', 'CI/CD']
   }
 ];
 
